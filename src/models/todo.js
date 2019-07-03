@@ -1,6 +1,13 @@
 'use strict'
 class Todo {
-  constructor ({ title, description, dueDate, priority, project, isCompletd = false }) {
+  constructor ({
+    title,
+    description = '',
+    dueDate,
+    priority,
+    project = null,
+    isCompletd = false
+  }) {
     this.title = title
     this.description = description
     this.dueDate = dueDate

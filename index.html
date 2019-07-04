@@ -48,13 +48,8 @@
               <th scope="col">Priority</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>23/2/2034</td>
-              <td>High</td>
-            </tr>
+          <tbody id="todo-table">
+            
           </tbody>
         </table>
       </div>
@@ -78,7 +73,7 @@
             <div class="mb-1">
               <div class="form-group">
                 <input type="text" class="form-control" id="taskTitle" aria-describedby="emailHelp"
-                  placeholder="Enter Task Title">
+                  placeholder="Enter Task Title" required>
               </div>
 
               <div class="row ">
@@ -92,9 +87,9 @@
                 <div class="col-6">
                   <div class="form-group">
                     <select name="" id="priority" class="form-control">
-                      <option value="" selected> Priority</option>
-                      <option value="">High</option>
-                      <option value="">Normal</option>
+                      <option value="High">High</option>
+                      <option selected value="Normal">Normal</option>
+                      <option value="Low">Low</option>
                     </select>
                   </div>
                 </div>
@@ -137,7 +132,7 @@
               <div class="form-group">
 
                 <input type="text" class="form-control" id="projectTitle" aria-describedby="emailHelp required"
-                  placeholder="Enter Project Title">
+                  placeholder="Enter Project Title" required>
               </div>
 
               <div class="form-group">

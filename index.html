@@ -28,11 +28,7 @@
               <th scope="col">Title</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>PRoject JS</td>
-            </tr>
-          </tbody>
+          <tbody id="projects-table"></tbody>
         </table>
       </div>
       <div class="col-8">
@@ -88,10 +84,7 @@
               <div class="row ">
                 <div class="col-6">
                   <div class="form-group ">
-                    <select name="" id="project" class="form-control">
-                      <option value="" selected> Project</option>
-                      <option value=""></option>
-                      <option value=""></option>
+                    <select name="" id="project-select" class="form-control">
                     </select>
 
                   </div>
@@ -143,7 +136,7 @@
             <div class="mb-1">
               <div class="form-group">
 
-                <input type="text" class="form-control" id="projectTitle" aria-describedby="emailHelp"
+                <input type="text" class="form-control" id="projectTitle" aria-describedby="emailHelp required"
                   placeholder="Enter Project Title">
               </div>
 

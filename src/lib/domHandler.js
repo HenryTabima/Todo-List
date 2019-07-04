@@ -15,20 +15,32 @@ function init ({ todoList, projectList }) {
   DomElements.projectForm = document.getElementById('new-project-form')
   DomElements.projectForm.addEventListener('submit', onProjectCreate)
 
-  DomElements.taskForm = document.getElementById('new-task-form')
-  DomElements.taskForm.addEventListener('submit', onTodoCreate)
+  DomElements.todoForm = document.getElementById('new-task-form')
+  DomElements.todoForm.addEventListener('submit', handleTodoForm)
+
+  let todoButton = document.getElementById('add-todo-button')
+  todoButton.addEventListener('click', restTodoForm)
 
   document.exposedFunctions = {
     selectProjectFilter,
-    deleteTodo
+    deleteTodo,
+    populateTodoForm
   }
 
   onProjectChange()
   onTodoChange()
 }
 
-function onTodoCreate (event) {
+function restTodoForm () {
+  DomElements.todoForm.elements[5].innerHTML = 'Add Todo'
+  DomElements.todoForm.elements[6].value = ''
+  DomElements.todoForm.reset()
+}
+
+function handleTodoForm (event) {
   event.preventDefault()
+  const hiddenId = event.target[6].value
+
   const todoParams = {
     title: event.target[0].value,
     project: parseInt(event.target[1].value),
@@ -36,7 +48,13 @@ function onTodoCreate (event) {
     dueDate: event.target[3].value,
     description: event.target[4].value
   }
-  lists.todos.addItem(todoParams)
+
+  if (hiddenId === '') {
+    lists.todos.addItem(todoParams)
+  } else {
+    lists.todos.updateItem({ id: parseInt(hiddenId), values: todoParams })
+  }
+
   onTodoChange()
 }
 
@@ -90,6 +108,19 @@ function selectProjectFilter (projectId) {
 function deleteTodo (todoId) {
   lists.todos.removeItem(todoId)
   onTodoChange()
+}
+
+function populateTodoForm (todoId) {
+  const todo = lists.todos.getItem(todoId)
+  let todoForm = DomElements.todoForm
+  todoForm.elements[0].value = todo.title
+  todoForm.elements[1].value = todo.project
+  todoForm.elements[2].value = todo.priority
+  todoForm.elements[3].value = todo.dueDate
+  todoForm.elements[4].value = todo.description
+  todoForm.elements[5].innerHTML = 'Update Todo'
+  todoForm.elements[6].value = todoId
+  console.log(todoId)
 }
 
 export default { init }

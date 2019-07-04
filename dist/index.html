@@ -35,7 +35,7 @@
         <h2 id="todo-table-title">Todos</h2>
 
         <button type="button" class="btn btn-outline-primary btn-sm btn-block mb-3" data-toggle="modal"
-          data-target="#taskModal">
+          data-target="#taskModal" id="add-todo-button">
           Add Task
         </button>
 
@@ -62,7 +62,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Project Task</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Todo Task</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -72,7 +72,7 @@
 
             <div class="mb-1">
               <div class="form-group">
-                <input type="text" class="form-control" id="taskTitle" aria-describedby="emailHelp"
+                <input type="text" class="form-control"  id="taskTitle" aria-describedby="emailHelp"
                   placeholder="Enter Task Title" required>
               </div>
 
@@ -108,8 +108,10 @@
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-block">Add Project</button>
+            <button type="submit" class="btn btn-primary btn-block">Add Task</button>
           </div>
+
+          <input type="hidden" name="id" id="idField" value="">
         </form>
       </div>
     </div>

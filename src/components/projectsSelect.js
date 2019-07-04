@@ -5,7 +5,11 @@ function projectSelect (collection) {
 }
 
 function selectItem (project) {
-  return `<option value="${project.id}">${project.title}</option>`
+  return `
+  <option value="${project.id}">
+    ${project.title}
+  </option>
+  `
 }
 
 export default projectSelect

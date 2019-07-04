@@ -10,6 +10,10 @@ class Collection {
     return Object.entries(this._collection).map(([id, item]) => ({ ...item, id: parseInt(id) }))
   }
 
+  getItem (id) {
+    return this._collection[id]
+  }
+
   addItem (params) {
     const item = new this.Model(params)
     this._collection[this._index] = item

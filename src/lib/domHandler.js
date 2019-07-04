@@ -2,11 +2,11 @@
 
 import projectTable from '../components/projectTable'
 import todoTable from '../components/todoTable'
-
 import projectsSelect from '../components/projectsSelect'
 
 let lists = {}
 let DomElements = {}
+let selectedProjectId = 0
 
 function init ({ todoList, projectList }) {
   console.log('Initializating DOM')
@@ -17,6 +17,11 @@ function init ({ todoList, projectList }) {
 
   DomElements.taskForm = document.getElementById('new-task-form')
   DomElements.taskForm.addEventListener('submit', onTodoCreate)
+
+  document.exposedFunctions = {
+    selectProjectFilter,
+    deleteTodo
+  }
 
   onProjectChange()
   onTodoChange()
@@ -36,8 +41,13 @@ function onTodoCreate (event) {
 }
 
 function onTodoChange () {
-  let todoCollection = lists.todos.getCollection()
+  let todoCollection = lists.todos
+    .getCollection()
+    .filter(todo => todo.project === selectedProjectId)
   renderTodoTable(todoCollection)
+  const $title = document.getElementById('todo-table-title')
+  $title.innerHTML = lists.projects.getItem(selectedProjectId).title
+  document.getElementById(`project-item-${selectedProjectId}`).classList.add('active')
 }
 
 function renderTodoTable (collection) {
@@ -69,6 +79,17 @@ function renderProjectTable (collection) {
 function renderProjectSelect (collection) {
   const $select = document.getElementById('project-select')
   $select.innerHTML = projectsSelect(collection)
+}
+
+function selectProjectFilter (projectId) {
+  document.getElementById(`project-item-${selectedProjectId}`).classList.remove('active')
+  selectedProjectId = projectId
+  onTodoChange()
+}
+
+function deleteTodo (todoId) {
+  lists.todos.removeItem(todoId)
+  onTodoChange()
 }
 
 export default { init }

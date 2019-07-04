@@ -6,8 +6,8 @@ function projectTable (collection) {
 
 function projectItem (project) {
   return `
-  <tr>
-    <td>${project.title}</td>
+  <tr id="project-item-${project.id}">
+    <td class="project-item" onClick="document.exposedFunctions.selectProjectFilter(${project.id})">${project.title}</td>
   </tr>
   `
 }

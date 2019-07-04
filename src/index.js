@@ -13,5 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   todoList.addItem({ title: 'Build an app', description: 'make some dev friends', priority: 'Normal', project: 0 })
   todoList.addItem({ title: 'be lazy', description: 'make some lazy friends', priority: 'Low', project: 0 })
 
+  projectList.addItem({ title: 'Project1', description: 'example project' })
+  todoList.addItem({ title: 'First task', description: 'start here', priority: 'High', project: 1 })
+
   DOMHandler.init({ todoList, projectList })
 })

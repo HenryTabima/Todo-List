@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.project-item {
+  cursor: pointer;
+}
+
 .High{
   background: #800000;
   color: whitesmoke;
@@ -15,4 +19,8 @@ body {
 .Low{
   background-color: #fbe8ab;
   color: grey;
+}
+
+tr.active {
+  background-color: lightgray;
 }

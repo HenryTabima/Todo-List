@@ -9,9 +9,9 @@ function todoItem (todo) {
     <td>${todo.title}</td>
     <td>${todo.description}</td>
     <td>${todo.dueDate}</td>
-    <td> 
-    <button class=" btn btn-sm btn-info"> Update</button>
-    <button class=" btn btn-sm btn-danger"> delete</button>
+    <td>
+    <button class="btn btn-sm btn-info"> Update</button>
+    <button class="btn btn-sm btn-danger" onClick="document.exposedFunctions.deleteTodo(${todo.id})"> delete</button>
 
     </td>
   </tr>

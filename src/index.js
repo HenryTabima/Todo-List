@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const todoList = new Collection(Todo)
 
   projectList.addItem({ title: 'Default', description: 'Default project' })
+  todoList.addItem({ title: 'buy a fast car', description: 'make some mechanic friends', priority: 'High', project: 0 })
+  todoList.addItem({ title: 'Build an app', description: 'make some dev friends', priority: 'Normal', project: 0 })
+  todoList.addItem({ title: 'be lazy', description: 'make some lazy friends', priority: 'Low', project: 0 })
 
   DOMHandler.init({ todoList, projectList })
 })

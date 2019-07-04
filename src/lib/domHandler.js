@@ -1,6 +1,8 @@
 'use strict'
 
 import projectTable from '../components/projectTable'
+import todoTable from '../components/todoTable'
+
 import projectsSelect from '../components/projectsSelect'
 
 let lists = {}
@@ -13,14 +15,34 @@ function init ({ todoList, projectList }) {
   DomElements.projectForm = document.getElementById('new-project-form')
   DomElements.projectForm.addEventListener('submit', onProjectCreate)
 
-  onProjectChange()
+  DomElements.taskForm = document.getElementById('new-task-form')
+  DomElements.taskForm.addEventListener('submit', onTodoCreate)
 
-  // const $taskForm = document.getElementById('new-task-form')
-  // $taskForm.addEventListener('submit', (event) => {
-  //   event.preventDefault()
-  //   console.log('Create Task', event.target)
-  //   $taskForm.reset()
-  // })
+  onProjectChange()
+  onTodoChange()
+}
+
+function onTodoCreate (event) {
+  event.preventDefault()
+  const todoParams = {
+    title: event.target[0].value,
+    project: parseInt(event.target[1].value),
+    priority: event.target[2].value,
+    dueDate: event.target[3].value,
+    description: event.target[4].value
+  }
+  lists.todos.addItem(todoParams)
+  onTodoChange()
+}
+
+function onTodoChange () {
+  let todoCollection = lists.todos.getCollection()
+  renderTodoTable(todoCollection)
+}
+
+function renderTodoTable (collection) {
+  const table = document.getElementById('todo-table')
+  table.innerHTML = todoTable(collection)
 }
 
 function onProjectCreate (event) {

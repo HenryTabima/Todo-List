@@ -7,8 +7,8 @@ function todoItem (todo) {
   const doneClass = todo.isDone ? 'fa fa-check-square' : 'far fa-square'
 
   return `
-  <tr class="${todo.priority} todo-item" onClick="document.exposedFunctions.toogleDone(${todo.id})">
-    <td class="icon"><i class="${doneClass}"></i></td>
+  <tr class="${todo.priority} todo-item">
+    <td class="icon" onClick="document.exposedFunctions.toogleDone(${todo.id})"><i class="${doneClass}"></i></td>
     <td>${todo.title}</td>
     <td>${todo.description}</td>
     <td>${todo.dueDate}</td>

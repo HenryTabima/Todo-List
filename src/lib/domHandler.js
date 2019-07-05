@@ -49,7 +49,6 @@ function resetProjectForm () {
 function handleTodoForm (event) {
   event.preventDefault()
   const hiddenId = event.target[6].value
-  let message = ''
 
   const todoParams = {
     title: event.target[0].value,
@@ -61,13 +60,11 @@ function handleTodoForm (event) {
 
   if (hiddenId === '') {
     lists.todos.addItem(todoParams)
-    message = 'Todo Created '
   } else {
     lists.todos.updateItem({ id: parseInt(hiddenId), values: todoParams })
-    message = 'Todo Updated'
   }
   onTodoChange()
-  alert(message)
+  $('#taskModal').modal('hide')
 }
 
 function onTodoChange () {
@@ -88,7 +85,6 @@ function renderTodoTable (collection) {
 function handleProjectForm (event) {
   event.preventDefault()
   const hiddenId = event.target[3].value
-  let message = ''
 
   const projectParams = {
     title: event.target[0].value,
@@ -96,13 +92,12 @@ function handleProjectForm (event) {
   }
   if (hiddenId === '') {
     lists.projects.addItem(projectParams)
-    message = 'Project Created.'
   } else {
     lists.projects.updateItem({ id: parseInt(hiddenId), values: projectParams })
-    message = 'Project Updated.'
   }
+  $('#projectModal').modal('hide')
   onProjectChange()
-  alert(message)
+
 }
 
 function onProjectChange () {

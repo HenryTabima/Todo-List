@@ -18,7 +18,7 @@ function init ({ todoList, projectList }) {
   DomElements.todoForm = document.getElementById('new-task-form')
   DomElements.todoForm.addEventListener('submit', handleTodoForm)
 
-   document.getElementById('add-todo-button').addEventListener('click', resetTodoForm)
+  document.getElementById('add-todo-button').addEventListener('click', resetTodoForm)
   document.getElementById('add-project-button').addEventListener('click', resetProjectForm)
 
   document.exposedFunctions = {
@@ -34,17 +34,7 @@ function init ({ todoList, projectList }) {
   onTodoChange()
 }
 
-function resetTodoForm () {
-  DomElements.todoForm.elements[5].innerHTML = 'Add Todo'
-  DomElements.todoForm.elements[6].value = ''
-  DomElements.todoForm.reset()
-}
-
-function resetProjectForm () {
-  DomElements.projectForm.elements[2].innerHTML = 'Add Project'
-  DomElements.projectForm.elements[3].value = ''
-  DomElements.projectForm.reset()
-}
+// Todos form related functions
 
 function handleTodoForm (event) {
   event.preventDefault()
@@ -67,6 +57,12 @@ function handleTodoForm (event) {
   $('#taskModal').modal('hide')
 }
 
+function resetTodoForm () {
+  DomElements.todoForm.elements[5].innerHTML = 'Add Todo'
+  DomElements.todoForm.elements[6].value = ''
+  DomElements.todoForm.reset()
+}
+
 function onTodoChange () {
   let todoCollection = lists.todos
     .getCollection()
@@ -77,10 +73,7 @@ function onTodoChange () {
   document.getElementById(`project-item-${selectedProjectId}`).classList.add('active')
 }
 
-function renderTodoTable (collection) {
-  const table = document.getElementById('todo-table')
-  table.innerHTML = todoTable(collection)
-}
+// Projects form related functions
 
 function handleProjectForm (event) {
   event.preventDefault()
@@ -97,13 +90,25 @@ function handleProjectForm (event) {
   }
   $('#projectModal').modal('hide')
   onProjectChange()
+}
 
+function resetProjectForm () {
+  DomElements.projectForm.elements[2].innerHTML = 'Add Project'
+  DomElements.projectForm.elements[3].value = ''
+  DomElements.projectForm.reset()
 }
 
 function onProjectChange () {
   let collection = lists.projects.getCollection()
   renderProjectTable(collection)
   renderProjectSelect(collection)
+}
+
+// Render functions
+
+function renderTodoTable (collection) {
+  const table = document.getElementById('todo-table')
+  table.innerHTML = todoTable(collection)
 }
 
 function renderProjectTable (collection) {
@@ -116,11 +121,7 @@ function renderProjectSelect (collection) {
   $select.innerHTML = projectsSelect(collection)
 }
 
-function selectProjectFilter (projectId) {
-  document.getElementById(`project-item-${selectedProjectId}`).classList.remove('active')
-  selectedProjectId = projectId
-  onTodoChange()
-}
+// Exposed Functions
 
 function toogleDone (todoId) {
   const todo = lists.todos.getItem(todoId)
@@ -137,10 +138,6 @@ function deleteTodo (todoId) {
   lists.todos.removeItem(todoId)
   onTodoChange()
 }
-function deleteProject (projectId) {
-  lists.projects.removeItem(projectId)
-  onProjectChange()
-}
 
 function populateTodoForm (todoId) {
   const todo = lists.todos.getItem(todoId)
@@ -155,6 +152,11 @@ function populateTodoForm (todoId) {
   console.log(todoId)
 }
 
+function deleteProject (projectId) {
+  lists.projects.removeItem(projectId)
+  onProjectChange()
+}
+
 function populateProjectForm (projectId) {
   const project = lists.projects.getItem(projectId)
   let projectForm = DomElements.projectForm
@@ -164,5 +166,10 @@ function populateProjectForm (projectId) {
   projectForm[3].value = parseInt(projectId)
 }
 
+function selectProjectFilter (projectId) {
+  document.getElementById(`project-item-${selectedProjectId}`).classList.remove('active')
+  selectedProjectId = projectId
+  onTodoChange()
+}
 
 export default { init }

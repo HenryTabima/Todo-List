@@ -18,13 +18,15 @@ function init ({ todoList, projectList }) {
   DomElements.todoForm = document.getElementById('new-task-form')
   DomElements.todoForm.addEventListener('submit', handleTodoForm)
 
-  let todoButton = document.getElementById('add-todo-button')
-  todoButton.addEventListener('click', restTodoForm)
+   document.getElementById('add-todo-button').addEventListener('click', resetTodoForm)
+  document.getElementById('add-project-button').addEventListener('click', resetProjectForm)
 
   document.exposedFunctions = {
     selectProjectFilter,
     deleteTodo,
     populateTodoForm,
+    deleteProject,
+    populateProjectForm,
     toogleDone
   }
 
@@ -32,15 +34,22 @@ function init ({ todoList, projectList }) {
   onTodoChange()
 }
 
-function restTodoForm () {
+function resetTodoForm () {
   DomElements.todoForm.elements[5].innerHTML = 'Add Todo'
   DomElements.todoForm.elements[6].value = ''
   DomElements.todoForm.reset()
 }
 
+function resetProjectForm () {
+  DomElements.projectForm.elements[2].innerHTML = 'Add Project'
+  DomElements.projectForm.elements[3].value = ''
+  DomElements.projectForm.reset()
+}
+
 function handleTodoForm (event) {
   event.preventDefault()
   const hiddenId = event.target[6].value
+  let message = ''
 
   const todoParams = {
     title: event.target[0].value,
@@ -52,11 +61,13 @@ function handleTodoForm (event) {
 
   if (hiddenId === '') {
     lists.todos.addItem(todoParams)
+    message = 'Todo Created '
   } else {
     lists.todos.updateItem({ id: parseInt(hiddenId), values: todoParams })
+    message = 'Todo Updated'
   }
-
   onTodoChange()
+  alert(message)
 }
 
 function onTodoChange () {
@@ -76,12 +87,22 @@ function renderTodoTable (collection) {
 
 function handleProjectForm (event) {
   event.preventDefault()
+  const hiddenId = event.target[3].value
+  let message = ''
+
   const projectParams = {
     title: event.target[0].value,
     description: event.target[1].value
   }
-  lists.projects.addItem(projectParams)
+  if (hiddenId === '') {
+    lists.projects.addItem(projectParams)
+    message = 'Project Created.'
+  } else {
+    lists.projects.updateItem({ id: parseInt(hiddenId), values: projectParams })
+    message = 'Project Updated.'
+  }
   onProjectChange()
+  alert(message)
 }
 
 function onProjectChange () {
@@ -121,6 +142,10 @@ function deleteTodo (todoId) {
   lists.todos.removeItem(todoId)
   onTodoChange()
 }
+function deleteProject (projectId) {
+  lists.projects.removeItem(projectId)
+  onProjectChange()
+}
 
 function populateTodoForm (todoId) {
   const todo = lists.todos.getItem(todoId)
@@ -134,5 +159,15 @@ function populateTodoForm (todoId) {
   todoForm.elements[6].value = todoId
   console.log(todoId)
 }
+
+function populateProjectForm (projectId) {
+  const project = lists.projects.getItem(projectId)
+  let projectForm = DomElements.projectForm
+  projectForm.elements[0].value = project.title
+  projectForm.elements[1].value = project.description
+  projectForm[2].innerHTML = 'Update Project'
+  projectForm[3].value = parseInt(projectId)
+}
+
 
 export default { init }

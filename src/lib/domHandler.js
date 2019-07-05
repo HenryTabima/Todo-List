@@ -13,7 +13,7 @@ function init ({ todoList, projectList }) {
   lists = { todos: todoList, projects: projectList }
 
   DomElements.projectForm = document.getElementById('new-project-form')
-  DomElements.projectForm.addEventListener('submit', onProjectCreate)
+  DomElements.projectForm.addEventListener('submit', handleProjectForm)
 
   DomElements.todoForm = document.getElementById('new-task-form')
   DomElements.todoForm.addEventListener('submit', handleTodoForm)
@@ -24,7 +24,8 @@ function init ({ todoList, projectList }) {
   document.exposedFunctions = {
     selectProjectFilter,
     deleteTodo,
-    populateTodoForm
+    populateTodoForm,
+    toogleDone
   }
 
   onProjectChange()
@@ -73,7 +74,7 @@ function renderTodoTable (collection) {
   table.innerHTML = todoTable(collection)
 }
 
-function onProjectCreate (event) {
+function handleProjectForm (event) {
   event.preventDefault()
   const projectParams = {
     title: event.target[0].value,
@@ -102,6 +103,17 @@ function renderProjectSelect (collection) {
 function selectProjectFilter (projectId) {
   document.getElementById(`project-item-${selectedProjectId}`).classList.remove('active')
   selectedProjectId = projectId
+  onTodoChange()
+}
+
+function toogleDone (todoId) {
+  const todo = lists.todos.getItem(todoId)
+  lists.todos.updateItem({
+    id: todoId,
+    values: {
+      isDone: !todo.isDone
+    }
+  })
   onTodoChange()
 }
 

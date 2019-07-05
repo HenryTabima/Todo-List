@@ -8,6 +8,10 @@ body {
   cursor: pointer;
 }
 
+.project-options {
+  width: 95px;
+}
+
 .High{
   background: #800000;
   color: whitesmoke;
@@ -23,4 +27,15 @@ body {
 
 tr.active {
   background-color: lightgray;
+}
+
+.todo-item {
+  cursor: pointer;
+  .icon {
+    font-size: 1.2rem;
+    width: 45px;
+  }
+  .options {
+    width: 95px;
+  }
 }

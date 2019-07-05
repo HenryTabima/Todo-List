@@ -6,14 +6,14 @@ class Todo {
     dueDate,
     priority,
     project = null,
-    isCompletd = false
+    isDone = false
   }) {
     this.title = title
     this.description = description
     this.dueDate = dueDate
     this.priority = priority
     this.project = project
-    this.isCompletd = isCompletd
+    this.isDone = isDone
   }
 }
 

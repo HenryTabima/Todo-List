@@ -11,7 +11,10 @@ class Collection {
   }
 
   getItem (id) {
-    return this._collection[id]
+    return {
+      ...this._collection[id],
+      id
+    }
   }
 
   addItem (params) {
